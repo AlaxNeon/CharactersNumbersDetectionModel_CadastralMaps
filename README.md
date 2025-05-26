@@ -1,0 +1,1 @@
+# CharactersNumbersDetectionModel_CadastralMaps.
