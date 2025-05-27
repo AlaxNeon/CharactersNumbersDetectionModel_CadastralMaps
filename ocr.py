@@ -47,18 +47,20 @@ for bbox, text, conf in results:
 characters = sorted(set(characters))
 numbers = sorted(set(numbers), key=lambda x: int(x))
 
-# Padding to equal length
-max_len = max(len(characters), len(numbers))
-characters += [None] * (max_len - len(characters))
-numbers += [None] * (max_len - len(numbers))
+# Join into single comma-separated strings
+char_string = ", ".join(characters)
+num_string = ", ".join(numbers)
 
-df = pd.DataFrame({
-    "Character Name": characters,
-    "Number": numbers
-})
+# Create a one-row DataFrame
+df = pd.DataFrame([{
+    "Character Names": char_string,
+    "Numbers": num_string
+}])
+
 csv_path = os.path.join(output_dir, "2_extracted_text.csv")
 df.to_csv(csv_path, index=False)
 print("CSV saved at:", csv_path)
+
 
 # === Step 5: Annotate Image with Detected Text ===
 annotated = resized_image.copy()
